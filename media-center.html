@@ -1,0 +1,605 @@
+Index 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#f6efe5" />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="description"
+        content="Meesh's House Call Bronze media center. Upload brand photos, videos, and content in one place." />
+  <title>Meesh’s Media Center | House Call Bronze</title>
+
+  <!--
+    Single-file Tailwind CDN setup.
+    For a production build, compiled Tailwind CSS can be embedded here instead.
+  -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Official Cloudinary Upload Widget. No API secret belongs in this file. -->
+  <script defer src="https://upload-widget.cloudinary.com/latest/global/all.js"></script>
+
+  <style>
+    :root {
+      --cream: #f6efe5;
+      --ink: #35261f;
+      --bronze: #855236;
+      --muted: #735f50;
+    }
+
+    body {
+      background: var(--cream);
+      color: var(--ink);
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .editorial {
+      font-family: Georgia, "Times New Roman", serif;
+      font-weight: 400;
+    }
+
+    .eyebrow {
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .19em;
+      text-transform: uppercase;
+    }
+
+    .paper {
+      background:
+        radial-gradient(ellipse at 95% 5%, #e8c9a744, transparent 55%),
+        #fffaf3;
+    }
+
+    .sun {
+      background: linear-gradient(145deg, #dcb78b, #a76b42);
+      box-shadow: 0 0 80px #ca9b6133;
+    }
+
+    .action {
+      min-height: 56px;
+      background: var(--bronze);
+      color: #fffaf3;
+      transition: background .2s, transform .2s;
+    }
+
+    .action:hover { background: #6b402a; }
+    .action:active { transform: translateY(1px); }
+    .action:disabled { opacity: .55; cursor: not-allowed; }
+
+    button:focus-visible, a:focus-visible {
+      outline: 3px solid #855236;
+      outline-offset: 5px;
+    }
+
+    [hidden] { display: none !important; }
+
+    #progressFill { transition: width .35s ease; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body class="min-h-screen antialiased">
+  <div class="mx-auto max-w-6xl px-5 sm:px-8">
+    <header class="flex items-center justify-between gap-4 border-b border-[#35261f]/15 py-6">
+      <!-- Original typographic treatment; not a reproduction of the official logo. -->
+      <a href="https://housecallbronze.com/"
+         target="_blank" rel="noopener noreferrer"
+         aria-label="Visit House Call Bronze website"
+         class="leading-none">
+        <span class="eyebrow block text-[#735f50]">House Call</span>
+        <span class="editorial mt-1 block text-3xl tracking-tight">bronze.</span>
+      </a>
+
+      <span class="eyebrow text-right text-[#735f50]">
+        Made for Meesh<br />
+        <span class="mt-1 block tracking-[.1em]">Media Center</span>
+      </span>
+    </header>
+
+    <main class="grid gap-10 py-10 sm:py-16 lg:grid-cols-[1.05fr_1fr] lg:items-center lg:gap-16">
+      <!-- Brand introduction -->
+      <section aria-labelledby="welcomeHeading">
+        <div class="relative mb-8 flex h-28 w-28 items-center justify-center">
+          <div class="absolute inset-0 rounded-full border border-[#a76b42]/30"></div>
+          <div class="sun h-20 w-20 rounded-full"></div>
+          <span class="absolute -right-3 bottom-2 editorial text-4xl text-[#855236]"
+                aria-hidden="true">✧</span>
+        </div>
+
+        <p class="eyebrow mb-5 text-[#855236]">Your brand. Your glow. Your space.</p>
+
+        <h1 id="welcomeHeading"
+            class="editorial max-w-lg text-5xl leading-[1.05] tracking-tight sm:text-6xl">
+          Hey Meesh,<br />
+          <em class="text-[#855236]">let’s make<br />your brand shine.</em>
+        </h1>
+
+        <p class="mt-6 max-w-md text-base leading-7 text-[#735f50]">
+          You bring the bronze. This is where your content comes together.
+          Add your photos, videos, and behind-the-scenes moments for
+          House Call Bronze—all in one easy place.
+        </p>
+
+        <div class="mt-8 flex flex-wrap gap-2" aria-label="Content ideas">
+          <span class="rounded-full border border-[#855236]/25 px-4 py-2 text-xs">
+            Fresh bronze
+          </span>
+          <span class="rounded-full border border-[#855236]/25 px-4 py-2 text-xs">
+            Behind the scenes
+          </span>
+          <span class="rounded-full border border-[#855236]/25 px-4 py-2 text-xs">
+            Reels &amp; brand moments
+          </span>
+        </div>
+
+        <div class="mt-9 border-l-2 border-[#b78960] pl-4">
+          <p class="editorial text-xl">The sunless tanning pro behind the glow.</p>
+          <p class="mt-2 text-sm text-[#735f50]">
+            A content home built around you and House Call Bronze.
+          </p>
+        </div>
+      </section>
+
+      <!-- Upload center -->
+      <section class="paper overflow-hidden rounded-[2rem] border border-[#855236]/20
+                      shadow-[0_24px_70px_-30px_rgba(75,45,26,0.3)]"
+               aria-labelledby="uploadHeading">
+        <div class="flex items-center justify-between border-b border-[#855236]/15 px-6 py-5 sm:px-8">
+          <span class="eyebrow text-[#735f50]">The Bronze Edit</span>
+          <span class="text-xs text-[#735f50]">Photos + videos</span>
+        </div>
+
+        <div class="p-6 sm:p-8">
+          <div id="intro">
+            <h2 id="uploadHeading" class="editorial text-3xl">Drop a little glow here.</h2>
+            <p class="mt-3 text-sm leading-6 text-[#735f50]">
+              Camera-roll favorites, tanning transformations, quick clips—
+              send the moments that make your brand yours.
+            </p>
+          </div>
+
+          <div id="uploadArea"
+               class="mt-6 rounded-2xl border border-dashed border-[#a77650]/60
+                      bg-white/50 px-5 py-8 text-center">
+            <svg class="mx-auto h-10 w-10 text-[#855236]"
+                 aria-hidden="true" viewBox="0 0 24 24"
+                 fill="none" stroke="currentColor" stroke-width="1.4">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M12 16V3m0 0L7 8m5-5 5 5M4 15v4a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4" />
+            </svg>
+
+            <p class="editorial mt-4 text-2xl">Your next brand moment starts here.</p>
+            <p class="mt-2 text-sm leading-6 text-[#735f50]">
+              Choose multiple photos or videos from your device.
+            </p>
+
+            <button id="selectButton" type="button" disabled
+                    class="action mt-6 w-full rounded-xl px-5 py-4 text-base font-semibold">
+              Select Files
+            </button>
+
+            <p class="mt-4 text-xs leading-5 text-[#735f50]">
+              File-size limits depend on the connected upload account.
+              Keep this page open until uploading finishes.
+            </p>
+          </div>
+
+          <!-- Setup and upload errors are visible, not just logged to the console. -->
+          <div id="notice" role="alert" hidden
+               class="mt-5 rounded-xl border border-amber-300 bg-amber-50
+                      p-4 text-sm leading-6 text-amber-950"></div>
+
+          <section id="progressSection" hidden class="mt-6"
+                   aria-labelledby="progressHeading">
+            <div class="flex items-center justify-between gap-3">
+              <h3 id="progressHeading" class="text-sm font-semibold">Sending your glow…</h3>
+              <span id="progressCount" class="text-xs tabular-nums text-[#735f50]">
+                0 files uploaded
+              </span>
+            </div>
+
+            <div id="progressTrack" role="progressbar"
+                 aria-label="Files successfully uploaded"
+                 aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"
+                 class="mt-3 h-2 overflow-hidden rounded-full bg-[#e8dbcc]">
+              <div id="progressFill" class="h-full bg-[#855236]" style="width:0%"></div>
+            </div>
+
+            <p class="mt-3 text-xs leading-5 text-[#735f50]">
+              This bar tracks completed files, not bytes transferred.
+              The upload window shows individual file progress.
+            </p>
+
+            <button id="reopenButton" type="button"
+                    class="mt-4 min-h-[48px] w-full rounded-xl border border-[#855236]/30
+                           px-4 py-3 text-sm font-semibold">
+              Open upload window
+            </button>
+          </section>
+
+          <section id="successSection" hidden class="mt-6 text-center"
+                   aria-labelledby="successHeading">
+            <div class="mx-auto flex h-14 w-14 items-center justify-center
+                        rounded-full bg-[#e5eadc] text-2xl text-[#405032]"
+                 aria-hidden="true">✓</div>
+            <h3 id="successHeading" class="editorial mt-4 text-3xl">
+              Beautiful. You’re all set.
+            </h3>
+            <p id="successMessage" class="mt-3 text-sm leading-6 text-[#735f50]"></p>
+            <button id="moreButton" type="button"
+                    class="action mt-5 w-full rounded-xl px-5 py-4 font-semibold">
+              Add more glow
+            </button>
+          </section>
+
+          <!-- Only confirmed successful uploads appear in this list. -->
+          <ul id="uploadedList" hidden
+              aria-label="Successfully uploaded files"
+              class="mt-5 max-h-56 space-y-2 overflow-y-auto"></ul>
+
+          <p id="liveStatus" role="status" aria-live="polite" class="sr-only"></p>
+
+          <div class="mt-6 border-t border-[#855236]/15 pt-5">
+            <p class="text-xs leading-5 text-[#735f50]">
+              Share only content you own or have permission to use.
+              Please get permission before uploading identifiable client photos.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="flex flex-col gap-3 border-t border-[#35261f]/15 py-6
+                   text-xs text-[#735f50] sm:flex-row sm:items-center sm:justify-between">
+      <p>House Call Bronze · Meesh’s Media Center</p>
+      <a href="https://housecallbronze.com/"
+         target="_blank" rel="noopener noreferrer"
+         class="underline decoration-[#855236]/40 underline-offset-4">
+        Back to House Call Bronze ↗
+      </a>
+    </footer>
+  </div>
+
+  <noscript>
+    <p style="padding:20px;text-align:center">
+      Please enable JavaScript to use the media upload center.
+    </p>
+  </noscript>
+
+  <script>
+    /*
+     * CLOUDINARY SETUP
+     *
+     * 1. Your Cloud Name is already inserted below: vq5qqokr.
+     *
+     * 2. In Cloudinary Console, open Settings > Upload > Upload presets.
+     *    Create or select an UNSIGNED upload preset.
+     *    Copy its exact NAME into uploadPreset below.
+     *
+     *    The ID previously supplied has NOT been confirmed as a preset name.
+     *    Do not paste an API secret, password, or access token into this file.
+     *
+     * 3. Configure the preset's destination folder as exactly MEESH_HCB.
+     *    Dynamic-folder accounts: set Asset folder to MEESH_HCB.
+     *    Fixed-folder accounts: set Folder to MEESH_HCB.
+     *    The destination is managed by the preset, not by a client-name input.
+     *
+     * 4. Restrict allowed formats and upload limits in the preset/account.
+     *    Browser-side restrictions alone do not prevent misuse.
+     *
+     * SECURITY:
+     * This static page has no authentication. It is not a private vault.
+     * Anyone with the URL and unsigned preset can potentially upload.
+     * "noindex" discourages indexing; it does not restrict access.
+     * Cloudinary media delivery privacy must be configured separately.
+     */
+    const CLOUDINARY_CONFIG = {
+      cloudName: "vq5qqokr",
+      uploadPreset:  "MEESH_HCB"
+    };
+
+    const $ = id => document.getElementById(id);
+    const ui = {
+      intro: $("intro"),
+      area: $("uploadArea"),
+      select: $("selectButton"),
+      notice: $("notice"),
+      progress: $("progressSection"),
+      heading: $("progressHeading"),
+      count: $("progressCount"),
+      track: $("progressTrack"),
+      fill: $("progressFill"),
+      reopen: $("reopenButton"),
+      success: $("successSection"),
+      successMessage: $("successMessage"),
+      more: $("moreButton"),
+      list: $("uploadedList"),
+      live: $("liveStatus")
+    };
+
+    let widget = null;
+    let selectedCount = 0;
+    let uploading = false;
+    let interrupted = false;
+    let uploadError = false;
+    let finished = false;
+
+    const selectedIds = new Set();
+    const successfulFiles = new Map();
+
+    function announce(message) {
+      ui.live.textContent = message;
+    }
+
+    function showNotice(message) {
+      ui.notice.textContent = message;
+      ui.notice.hidden = false;
+      announce(message);
+    }
+
+    function updateProgress() {
+      const done = successfulFiles.size;
+      const total = Math.max(selectedCount, done);
+      const percent = total ? Math.round(done / total * 100) : 0;
+
+      ui.fill.style.width = percent + "%";
+      ui.track.setAttribute("aria-valuenow", String(percent));
+      ui.track.setAttribute("aria-valuetext", `${done} of ${total} files uploaded`);
+      ui.count.textContent = `${done} / ${total} uploaded`;
+    }
+
+    function addSuccessfulFile(info) {
+      const key = info.asset_id || info.public_id;
+      if (!key || successfulFiles.has(key)) return;
+
+      successfulFiles.set(key, info);
+
+      const row = document.createElement("li");
+      row.className =
+        "flex items-center justify-between gap-3 rounded-xl bg-white/70 px-4 py-3 text-sm";
+
+      const name = document.createElement("span");
+      name.className = "min-w-0 break-all";
+      name.textContent =
+        info.original_filename || info.display_name || "Uploaded file";
+
+      const check = document.createElement("span");
+      check.className = "shrink-0 text-xs font-semibold text-[#405032]";
+      check.textContent = "Uploaded";
+
+      row.append(name, check);
+      ui.list.appendChild(row);
+      ui.list.hidden = false;
+      updateProgress();
+    }
+
+    function showComplete() {
+      finished = true;
+      uploading = false;
+      ui.intro.hidden = true;
+      ui.area.hidden = true;
+      ui.progress.hidden = true;
+      ui.success.hidden = false;
+      ui.notice.hidden = true;
+
+      const count = successfulFiles.size;
+      ui.successMessage.textContent =
+        `${count} ${count === 1 ? "file has" : "files have"} landed in your ` +
+        "House Call Bronze media collection. Thanks, Meesh—your next brand moment is ready.";
+      announce("Upload complete. " + ui.successMessage.textContent);
+    }
+
+    function handleWidgetEvent(error, result) {
+      if (error) {
+        uploadError = true;
+        finished = false;
+        ui.success.hidden = true;
+        ui.progress.hidden = false;
+        ui.heading.textContent = "An upload needs attention";
+        showNotice(
+          "A file could not be uploaded. Open the upload window to review the error " +
+          "and retry. Files marked Uploaded below have already been received."
+        );
+        console.error("Cloudinary upload error:", error);
+        return;
+      }
+
+      if (!result) return;
+
+      switch (result.event) {
+        case "upload-added": {
+          const id = result.info?.id;
+          if (!id || !selectedIds.has(id)) {
+            selectedCount++;
+            if (id) selectedIds.add(id);
+          }
+          finished = false;
+          ui.success.hidden = true;
+          ui.area.hidden = true;
+          ui.progress.hidden = false;
+          updateProgress();
+          break;
+        }
+
+        case "queues-start":
+          uploading = true;
+          interrupted = false;
+          finished = false;
+          ui.success.hidden = true;
+          ui.progress.hidden = false;
+          ui.heading.textContent = "Sending your glow…";
+          announce("Uploading. Please keep this page open.");
+          break;
+
+        case "retry":
+          uploadError = false;
+          interrupted = false;
+          ui.notice.hidden = true;
+          ui.heading.textContent = "Trying again…";
+          break;
+
+        case "success":
+          addSuccessfulFile(result.info || {});
+          announce(`${successfulFiles.size} files uploaded successfully.`);
+          break;
+
+        case "queues-end":
+          uploading = false;
+          updateProgress();
+
+          if (
+            successfulFiles.size > 0 &&
+            successfulFiles.size >= selectedCount &&
+            !interrupted &&
+            !uploadError
+          ) {
+            showComplete();
+          } else {
+            ui.heading.textContent = "Let’s finish your upload";
+            showNotice(
+              `${successfulFiles.size} files received. Some files may need attention. ` +
+              "Open the upload window to review or retry them."
+            );
+          }
+          break;
+
+        case "abort":
+        case "batch-cancelled":
+          uploading = false;
+          interrupted = true;
+          ui.heading.textContent = "Upload interrupted";
+          showNotice(
+            "The upload was interrupted. Files already marked Uploaded are saved. " +
+            "Open the upload window to check any remaining files."
+          );
+          break;
+
+        case "close":
+          if (uploading && !finished) {
+            announce("Upload window closed. Reopen it to check progress.");
+          }
+          break;
+      }
+    }
+
+    function createWidget() {
+      return window.cloudinary.createUploadWidget({
+        cloudName: CLOUDINARY_CONFIG.cloudName,
+        uploadPreset: CLOUDINARY_CONFIG.uploadPreset,
+        sources: ["local"],
+        multiple: true,
+        resourceType: "auto",
+        clientAllowedFormats: ["image", "video"],
+        showAdvancedOptions: false,
+        showCompletedButton: true,
+        singleUploadAutoClose: false,
+
+        // Folder destination is configured in the unsigned upload preset.
+        // No artificial 2 GB promise: your account's actual limits apply.
+        // The widget manages upload transport; no undocumented chunk option.
+
+        styles: {
+          palette: {
+            window: "#FFFAF3",
+            windowBorder: "#D8C6B1",
+            tabIcon: "#855236",
+            menuIcons: "#735F50",
+            textDark: "#35261F",
+            textLight: "#FFFFFF",
+            link: "#855236",
+            action: "#855236",
+            inactiveTabIcon: "#735F50",
+            error: "#B42318",
+            inProgress: "#855236",
+            complete: "#405032",
+            sourceBg: "#F6EFE5"
+          }
+        }
+      }, handleWidgetEvent);
+    }
+
+    function openWidget() {
+      try {
+        if (!widget) widget = createWidget();
+        widget.open();
+      } catch (error) {
+        showNotice("The upload window could not open. Refresh this page and try again.");
+        console.error(error);
+      }
+    }
+
+    ui.select.addEventListener("click", openWidget);
+    ui.reopen.addEventListener("click", openWidget);
+
+    ui.more.addEventListener("click", async () => {
+      ui.more.disabled = true;
+
+      try {
+        if (widget) await widget.destroy();
+        widget = null;
+        selectedCount = 0;
+        uploading = false;
+        interrupted = false;
+        uploadError = false;
+        finished = false;
+        selectedIds.clear();
+        successfulFiles.clear();
+
+        ui.list.replaceChildren();
+        ui.list.hidden = true;
+        ui.notice.hidden = true;
+        ui.success.hidden = true;
+        ui.progress.hidden = true;
+        ui.intro.hidden = false;
+        ui.area.hidden = false;
+        ui.heading.textContent = "Sending your glow…";
+        updateProgress();
+        ui.select.focus();
+      } catch (error) {
+        showNotice("Please refresh the page before starting another upload.");
+        console.error(error);
+      } finally {
+        ui.more.disabled = false;
+      }
+    });
+
+    window.addEventListener("beforeunload", event => {
+      if (!uploading) return;
+      event.preventDefault();
+      event.returnValue = "";
+    });
+
+    window.addEventListener("DOMContentLoaded", () => {
+      if (!window.cloudinary) {
+        showNotice(
+          "The upload service could not load. Check your connection or browser blocker, " +
+          "then refresh this page."
+        );
+        return;
+      }
+
+      if (
+        !CLOUDINARY_CONFIG.cloudName.trim() ||
+        !CLOUDINARY_CONFIG.uploadPreset.trim() ||
+        CLOUDINARY_CONFIG.uploadPreset.startsWith("PASTE_")
+      ) {
+        showNotice(
+          "Almost ready: add your unsigned Cloudinary upload preset name in index.html. " +
+          "Its destination folder should be MEESH_HCB."
+        );
+        return;
+      }
+
+      ui.select.disabled = false;
+    });
+  </script>
+</body>
+</html>
